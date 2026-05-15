@@ -56,3 +56,8 @@ def post_evento(bar_id: int, datos: dict):
     datos['fecha_creacion'] = datetime.now().isoformat()
     db["eventos"].insert_one(datos)
     return {'mensaje': 'Evento guardado'}
+
+@app.get('/bares/{bar_id}')
+def get_bares(bar_id: int):
+    bar = db["bares"].find_one({"bar_id": bar_id}, {"_id": 0})
+    return bar
