@@ -13,15 +13,15 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-#os.environ para despliegue. Descomente cuando ya probó todo local.
+# os.environ para despliegue. Descomente cuando ya probó todo local.
 client = MongoClient(os.environ["MONGO_URI"])
 # TODO: conectarse al cluster Admonsis  
 # client = MongoClient("mongodb://ISIS2304C29202610:OE6wZSWPzb54@157.253.236.88:8087")
 
-#client = MongoClient("mongodb://ISIS2304C29202610:OE6wZSWPzb54@157.253.236.88:8087")
+# client = MongoClient("mongodb://ISIS2304C29202610:OE6wZSWPzb54@157.253.236.88:8087")
 # TODO: conectarse a la base de datos Admonsis  
 # db = client["ISIS*******"]
-db = client["ISIS2304C29202610"]
+db = client["ISIS2304"]
 
 
 @app.get("/")
@@ -59,5 +59,6 @@ def post_evento(bar_id: int, datos: dict):
 
 @app.get('/bares/{bar_id}')
 def get_bares(bar_id: int):
-    bar = db["bares"].find_one({"bar_id": bar_id}, {"_id": 0})
+    # Cambio a colección "Bares" con mayúscula
+    bar = db["Bares"].find_one({"bar_id": bar_id}, {"_id": 0})
     return bar
