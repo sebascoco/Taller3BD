@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
 from datetime import datetime
 import os
+from datetime import datetime
 
 app = FastAPI()
 
@@ -30,6 +31,7 @@ def get_comentarios(bar_id: int):
 def post_comentario(bar_id: int, datos: dict):
     datos['bar_id'] = bar_id
     datos['fecha'] = datetime.now().isoformat()
+    datos['date'] = datetime.utcnow()
     db_propia["comentarios_bares"].insert_one(datos)
     return {'mensaje': 'Comentario guardado'}
 
